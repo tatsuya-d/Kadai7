@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.created;
@@ -17,10 +18,10 @@ import static org.springframework.http.ResponseEntity.created;
 public class NameController {
 
     @GetMapping("/name")
-    String getName(
+    public List<String> getName(
             @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
 
-        return "名前:" + name + System.lineSeparator() + "生年月日:" + date;
+        return List.of("名前:" + name + System.lineSeparator() + "生年月日:" + date);
     }
 
     @PostMapping("/name")
