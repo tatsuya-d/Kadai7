@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.created;
@@ -18,10 +17,9 @@ import static org.springframework.http.ResponseEntity.created;
 public class NameController {
 
     @GetMapping("/name")
-    public List<String> getName(
+    public NameDateFormat getName(
             @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
-
-        return List.of("name:" + name, "dateOfBirth:" + date);
+        return new NameDateFormat("tatsuya", "1993-10-30");
     }
 
     @PostMapping("/name")

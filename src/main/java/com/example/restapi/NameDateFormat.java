@@ -6,7 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NameDateFormat {
-    private int date;
+    private String date;
     private String name;
 
+    public NameDateFormat(String name, String date) {
+        this.name = name;
+        this.date = date;
+    }
 }
