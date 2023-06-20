@@ -21,7 +21,7 @@ public class NameController {
     public List<String> getName(
             @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
 
-        return List.of("名前:" + name, "生年月日:" + date);
+        return List.of("name:" + name, "dateOfBirth:" + date);
     }
 
     @PostMapping("/name")
