@@ -9,35 +9,35 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 public class NameController {
-    @GetMapping("/name")
-    String getName(
-            @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
 
-        return "名前:" + name + System.lineSeparator() + "生年月日:" + date;
+    @GetMapping("/name")
+    public NameDateResponse getName(
+            @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
+        return new NameDateResponse("tatsuya", "1993-10-30");
     }
 
     @PostMapping("/name")
-    public ResponseEntity<String> create(@RequestBody NameDateFormat form) {
+    ResponseEntity<Map<String, String>> create(@RequestBody NameDateResponse form) {
         // 登録処理は省略
         URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
                 .path("/name")
                 .build()
                 .toUri();
-        return ResponseEntity.created(url).body("name,date, successfully created");
+        return ResponseEntity.created(url).body(Map.of("message", "name and date was successfully created"));
     }
 
     @PatchMapping("/name/{number}")
-    public String update(@PathVariable("number") int number, @RequestBody UpdateForm form) {
+    ResponseEntity<Map<String, String>> update(@PathVariable("number") int number, @RequestBody UpdateForm form) {
         //　更新処理は省略
-        return ( "message, successfully updated" );
+        return ResponseEntity.ok(Map.of("message", "successfully updated"));
     }
 
     @DeleteMapping("/name/{number}")
-    public String deleteName(@PathVariable("number") int number) {
-        // 更新処理は省略
-        return ( "message,name successfully deleted" );
+    public ResponseEntity<Void> delete(@PathVariable("number") int deleteNumber) {
+        return ResponseEntity.noContent().build();
     }
 }
