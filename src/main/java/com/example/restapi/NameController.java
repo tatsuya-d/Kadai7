@@ -11,25 +11,23 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.Map;
 
-import static org.springframework.http.ResponseEntity.created;
-
 @RestController
 public class NameController {
 
     @GetMapping("/name")
-    public NameDateFormat getName(
+    public NameDateResponse getName(
             @Validated @NotNull @NotBlank @Length(max = 20) @RequestParam("name") String name, @RequestParam("date") String date) {
-        return new NameDateFormat("tatsuya", "1993-10-30");
+        return new NameDateResponse("tatsuya", "1993-10-30");
     }
 
     @PostMapping("/name")
-    ResponseEntity<Map<String, String>> create(@RequestBody NameDateFormat form) {
+    ResponseEntity<Map<String, String>> create(@RequestBody NameDateResponse form) {
         // 登録処理は省略
         URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
                 .path("/name")
                 .build()
                 .toUri();
-        return created(url).body(Map.of("name,date", "successfully created"));
+        return ResponseEntity.created(url).body(Map.of("message", "name and date was successfully created"));
     }
 
     @PatchMapping("/name/{number}")

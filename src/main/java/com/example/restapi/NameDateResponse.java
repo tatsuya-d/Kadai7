@@ -1,6 +1,6 @@
 package com.example.restapi;
 
-public class NameDateFormat {
+public class NameDateResponse {
     private String date;
     private String name;
 
@@ -21,7 +21,7 @@ public class NameDateFormat {
     }
 
 
-    public NameDateFormat(String name, String date) {
+    public NameDateResponse(String name, String date) {
         this.name = name;
         this.date = date;
     }
